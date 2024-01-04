@@ -1,5 +1,5 @@
+const { StatusCode } = require("status-code-enum");
 const generator = require("generate-password");
-
 const passGen = async (req, res) => {
   try {
     const { length, charsLower, charsUpper, charsNumeric, charsSymbols } =
@@ -11,11 +11,11 @@ const passGen = async (req, res) => {
       symbols: charsSymbols,
       lowercase: charsLower,
     });
-    console.log(password);
-    res.status(200).json("Success");
+    res.status(StatusCode.SuccessOK).json(password);
   } catch (error) {
-    console.error("Error in generateSomething:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res
+      .status(StatusCode.ServerErrorInternal)
+      .json({ error: "Internal Server Error" });
   }
 };
 
